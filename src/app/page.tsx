@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -58,56 +57,31 @@ export default function HomePage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50">
       {/* 头部 */}
-      <motion.header
-        initial={{ opacity: 0, y: -50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-        className="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 text-white py-8 px-4 shadow-xl"
-      >
+      <header className="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 text-white py-8 px-4 shadow-xl">
         <div className="max-w-6xl mx-auto">
           <div className="flex items-center justify-between flex-wrap gap-4">
             <div>
-              <motion.h1
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.2 }}
-                className="text-4xl md:text-5xl font-bold flex items-center gap-3"
-              >
+              <h1 className="text-4xl md:text-5xl font-bold flex items-center gap-3">
                 <Sparkles className="w-10 h-10" />
                 家庭积分管理系统
-              </motion.h1>
-              <motion.p
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.3 }}
-                className="mt-2 text-lg opacity-90"
-              >
+              </h1>
+              <p className="mt-2 text-lg opacity-90">
                 记录成长点滴，激励每一个进步
-              </motion.p>
+              </p>
             </div>
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.4 }}
-              className="bg-white/20 backdrop-blur-sm rounded-lg px-4 py-2"
-            >
+            <div className="bg-white/20 backdrop-blur-sm rounded-lg px-4 py-2">
               <div className="flex items-center gap-2 text-sm">
                 <Clock className="w-4 h-4" />
                 <span>数据更新时间: 2026-04-05</span>
               </div>
-            </motion.div>
+            </div>
           </div>
         </div>
-      </motion.header>
+      </header>
 
       <main className="max-w-6xl mx-auto px-4 py-8">
         {/* 积分总览 */}
-        <motion.section
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5 }}
-          className="mb-12"
-        >
+        <section className="mb-12">
           <h2 className="text-3xl font-bold text-gray-800 mb-6 flex items-center gap-2">
             <Trophy className="w-8 h-8 text-yellow-500" />
             积分总览
@@ -115,12 +89,9 @@ export default function HomePage() {
           
           <div className="grid md:grid-cols-3 gap-6">
             {Object.entries(familyData.points).map(([name, points], index) => (
-              <motion.div
+              <div
                 key={name}
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.6 + index * 0.1 }}
-                whileHover={{ scale: 1.05, y: -5 }}
+                className="transition-transform hover:scale-105 hover:-translate-y-1"
               >
                 <Link href={`/person/${name}`}>
                   <Card className="cursor-pointer overflow-hidden border-0 shadow-lg">
@@ -143,16 +114,11 @@ export default function HomePage() {
                       </CardDescription>
                     </CardHeader>
                     <CardContent>
-                      <motion.div
-                        initial={{ scale: 0 }}
-                        animate={{ scale: 1 }}
-                        transition={{ delay: 0.8 + index * 0.1, type: 'spring' }}
-                        className="text-5xl font-bold text-center my-4"
-                      >
+                      <div className="text-5xl font-bold text-center my-4">
                         <span className={`bg-gradient-to-r ${getPersonColor(name)} bg-clip-text text-transparent`}>
                           {points}
                         </span>
-                      </motion.div>
+                      </div>
                       <div className="space-y-2">
                         <div className="flex justify-between text-sm text-gray-600">
                           <span>总积分占比</span>
@@ -163,17 +129,13 @@ export default function HomePage() {
                     </CardContent>
                   </Card>
                 </Link>
-              </motion.div>
+              </div>
             ))}
           </div>
-        </motion.section>
+        </section>
 
         {/* 积分规则 */}
-        <motion.section
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.9 }}
-        >
+        <section>
           <h2 className="text-3xl font-bold text-gray-800 mb-6 flex items-center gap-2">
             <Star className="w-8 h-8 text-yellow-500" />
             积分规则
@@ -191,13 +153,9 @@ export default function HomePage() {
                 {familyData.rules.map((rule, index) => {
                   const isPositive = rule.points.startsWith('+');
                   return (
-                    <motion.div
+                    <div
                       key={index}
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 1 + index * 0.05 }}
-                      whileHover={{ scale: 1.02 }}
-                      className={`flex items-center justify-between p-4 rounded-lg border-2 ${
+                      className={`transition-transform hover:scale-102 flex items-center justify-between p-4 rounded-lg border-2 ${
                         isPositive 
                           ? 'bg-green-50 border-green-200' 
                           : 'bg-red-50 border-red-200'
@@ -212,65 +170,27 @@ export default function HomePage() {
                       >
                         {rule.points}
                       </Badge>
-                    </motion.div>
+                    </div>
                   );
                 })}
               </div>
             </CardContent>
           </Card>
-        </motion.section>
+        </section>
 
-        {/* 快速导航 */}
-        <motion.section
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.5 }}
-          className="mt-12"
-        >
-          <h2 className="text-3xl font-bold text-gray-800 mb-6 flex items-center gap-2">
-            <Users className="w-8 h-8 text-blue-500" />
-            快速查看
-          </h2>
-          
-          <div className="grid md:grid-cols-3 gap-4">
-            {Object.keys(familyData.points).map((name, index) => (
-              <motion.div
-                key={name}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 1.6 + index * 0.1 }}
-                whileHover={{ scale: 1.05 }}
-              >
-                <Link href={`/person/${name}`}>
-                  <Card className="cursor-pointer hover:shadow-xl transition-shadow">
-                    <CardContent className="p-6 text-center">
-                      <span className="text-6xl mb-2 block">{getPersonEmoji(name)}</span>
-                      <h3 className="text-xl font-bold text-gray-800">{name}</h3>
-                      <p className="text-gray-600 mt-1">
-                        查看积分明细 →
-                      </p>
-                    </CardContent>
-                  </Card>
-                </Link>
-              </motion.div>
-            ))}
+        {/* 页脚 */}
+        <footer className="mt-12 text-center text-gray-600 text-sm">
+          <div className="flex items-center justify-center gap-2">
+            <Users className="w-4 h-4" />
+            <span>家庭成员: {Object.keys(familyData.points).length} 人</span>
+            <span className="mx-2">|</span>
+            <span>总积分: {totalPoints} 分</span>
           </div>
-        </motion.section>
-      </main>
-
-      {/* 页脚 */}
-      <motion.footer
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 2 }}
-        className="bg-gray-800 text-white py-6 px-4 mt-12"
-      >
-        <div className="max-w-6xl mx-auto text-center">
-          <p className="text-gray-400">
-            © 2024 家庭积分管理系统 - 用爱与规则陪伴成长
+          <p className="mt-2 text-gray-500">
+            数据来源: 腾讯文档"家庭旅游基金"
           </p>
-        </div>
-      </motion.footer>
+        </footer>
+      </main>
     </div>
   );
 }
