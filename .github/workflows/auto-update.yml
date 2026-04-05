@@ -1,0 +1,66 @@
+name: Auto Update Data
+
+on:
+  schedule:
+    # 每30分钟运行一次
+    - cron: '*/30 * * * *'
+  workflow_dispatch: # 手动触发
+  push:
+    branches:
+      - main
+      - master
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      
+      - name: Install pnpm
+        run: npm install -g pnpm mcporter
+      
+      - name: Install dependencies
+        run: pnpm install
+      
+      - name: Update data from Tencent Docs
+        env:
+          TENCENT_DOCS_TOKEN: ${{ secrets.TENCENT_DOCS_TOKEN }}
+        run: |
+          echo "🔄 正在从腾讯文档更新数据..."
+          node scripts/update-data.js
+          
+          # 检查是否有变更
+          if git diff --quiet src/lib/data.ts; then
+            echo "✅ 数据无变化"
+          else
+            echo "📝 数据已更新，准备提交..."
+            git config user.name "GitHub Actions"
+            git config user.email "actions@github.com"
+            git add src/lib/data.ts
+            git commit -m "chore: 自动更新积分数据 - $(date '+%Y-%m-%d %H:%M:%S')"
+            git push
+          fi
+      
+      - name: Build project
+        run: pnpm build
+        env:
+          NODE_ENV: production
+      
+      - name: Deploy to GitHub Pages
+        run: |
+          cd out
+          git init
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git add -A
+          git commit -m "Deploy: $(date '+%Y-%m-%d %H:%M:%S')"
+          git branch -M gh-pages
+          git remote add origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
+          git push -f origin gh-pages
