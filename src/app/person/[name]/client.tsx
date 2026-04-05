@@ -59,12 +59,8 @@ export function PersonClient({ name }: PersonClientProps) {
   };
 
   const getPersonAvatar = (): string | undefined => {
-    const avatars = {
-      小宝: 'https://code.coze.cn/api/sandbox/coze_coding/file/proxy?expire_time=-1&file_path=assets%2F%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20260405125818_61_49.jpg&nonce=29337bac-1028-421e-bdf8-fd3590855175&project_id=7625088798543708211&sign=6b40d85f158d4398317ed5efd3e3c39041c0ac9ca4c2584329d584af7d82d9d8',
-      大宝: undefined,
-      妈妈: undefined
-    };
-    return avatars[name as keyof typeof avatars];
+    // 暂时不使用头像图片，使用emoji代替
+    return undefined;
   };
 
   if (!familyData.details[name as keyof typeof familyData.details]) {

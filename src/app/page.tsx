@@ -1,6 +1,3 @@
-'use client';
-
-import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -9,21 +6,6 @@ import { Trophy, Star, Clock, Users, Sparkles } from 'lucide-react';
 import { familyData } from '@/lib/data';
 
 export default function HomePage() {
-  const [countdown, setCountdown] = useState(1800);
-
-  useEffect(() => {
-    const countdownInterval = setInterval(() => {
-      setCountdown((prev) => (prev > 0 ? prev - 1 : 1800));
-    }, 1000);
-    return () => clearInterval(countdownInterval);
-  }, []);
-
-  const formatCountdown = (seconds: number) => {
-    const mins = Math.floor(seconds / 60);
-    const secs = seconds % 60;
-    return `${mins}:${secs.toString().padStart(2, '0')}`;
-  };
-
   const getPersonColor = (name: string) => {
     const colors = {
       小宝: 'from-blue-400 to-blue-600',
@@ -40,15 +22,6 @@ export default function HomePage() {
       妈妈: '👩'
     };
     return emojis[name as keyof typeof emojis] || '👤';
-  };
-
-  const getPersonAvatar = (name: string): string | undefined => {
-    const avatars = {
-      小宝: 'https://code.coze.cn/api/sandbox/coze_coding/file/proxy?expire_time=-1&file_path=assets%2F%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20260405125818_61_49.jpg&nonce=29337bac-1028-421e-bdf8-fd3590855175&project_id=7625088798543708211&sign=6b40d85f158d4398317ed5efd3e3c39041c0ac9ca4c2584329d584af7d82d9d8',
-      大宝: undefined,
-      妈妈: undefined
-    };
-    return avatars[name as keyof typeof avatars];
   };
 
   const totalPoints = Object.values(familyData.points).reduce((a, b) => a + b, 0);
@@ -88,7 +61,7 @@ export default function HomePage() {
           </h2>
           
           <div className="grid md:grid-cols-3 gap-6">
-            {Object.entries(familyData.points).map(([name, points], index) => (
+            {Object.entries(familyData.points).map(([name, points]) => (
               <div
                 key={name}
                 className="transition-transform hover:scale-105 hover:-translate-y-1"
@@ -98,15 +71,7 @@ export default function HomePage() {
                     <div className={`h-2 bg-gradient-to-r ${getPersonColor(name)}`} />
                     <CardHeader>
                       <CardTitle className="flex items-center gap-3">
-                        {getPersonAvatar(name) ? (
-                          <img 
-                            src={getPersonAvatar(name)} 
-                            alt={name}
-                            className="w-12 h-12 rounded-full object-cover border-2 border-white shadow-md"
-                          />
-                        ) : (
-                          <span className="text-4xl">{getPersonEmoji(name)}</span>
-                        )}
+                        <span className="text-4xl">{getPersonEmoji(name)}</span>
                         <span className="text-2xl">{name}</span>
                       </CardTitle>
                       <CardDescription>
