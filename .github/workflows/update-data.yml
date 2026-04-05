@@ -1,0 +1,48 @@
+name: Update Family Points Data
+
+on:
+  schedule:
+    # 每30分钟运行一次
+    - cron: '*/30 * * * *'
+  workflow_dispatch: # 手动触发
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      
+      - name: Install dependencies
+        run: |
+          npm install -g pnpm
+      
+      - name: Update data and build
+        env:
+          TENCENT_DOCS_TOKEN: ${{ secrets.TENCENT_DOCS_TOKEN }}
+        run: |
+          # 安装项目依赖
+          pnpm install
+          
+          # TODO: 这里添加从腾讯文档获取数据的逻辑
+          # 示例：使用API获取数据并更新 src/lib/data.ts
+          # node scripts/update-data.js
+          
+          # 构建生产版本
+          pnpm build
+      
+      - name: Deploy to GitHub Pages
+        run: |
+          cd out
+          git init
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git add -A
+          git commit -m "自动更新数据: $(date '+%Y-%m-%d %H:%M:%S')"
+          git push -f https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git master:gh-pages
