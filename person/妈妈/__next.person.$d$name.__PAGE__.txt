@@ -1,0 +1,6 @@
+1:"$Sreact.fragment"
+2:I[92034,["/family-points-system/_next/static/chunks/0e76ae43d3fa3f5f.js","/family-points-system/_next/static/chunks/d5e289bff96cf0c1.js","/family-points-system/_next/static/chunks/efca94545f3a22da.js","/family-points-system/_next/static/chunks/aee8623a3a3dbdda.js"],"PersonClient"]
+3:I[11282,["/family-points-system/_next/static/chunks/d5e289bff96cf0c1.js","/family-points-system/_next/static/chunks/faedf336691a9b1e.js"],"OutletBoundary"]
+4:"$Sreact.suspense"
+0:{"buildId":"8dJh23usybQwaYgrosBV2","rsc":["$","$1","c",{"children":[["$","$L2",null,{"data-inspector-line":"14","data-inspector-column":"9","data-inspector-relative-path":"src/app/person/[name]/page.tsx","name":"妈妈"}],[["$","script","script-0",{"src":"/family-points-system/_next/static/chunks/d5e289bff96cf0c1.js","async":true}],["$","script","script-1",{"src":"/family-points-system/_next/static/chunks/efca94545f3a22da.js","async":true}],["$","script","script-2",{"src":"/family-points-system/_next/static/chunks/aee8623a3a3dbdda.js","async":true}]],["$","$L3",null,{"children":["$","$4",null,{"name":"Next.MetadataOutlet","children":"$@5"}]}]]}],"loading":null,"isPartial":false}
+5:null
