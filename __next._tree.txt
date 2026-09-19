@@ -1,0 +1,2 @@
+:HL["/family-points-system/_next/static/chunks/08c3fec1fb478b2c.css","style"]
+0:{"buildId":"t1o6RPVUD219w_FfSEM0y","tree":{"name":"","paramType":null,"paramKey":"","hasRuntimePrefetch":false,"slots":{"children":{"name":"__PAGE__","paramType":null,"paramKey":"__PAGE__","hasRuntimePrefetch":false,"slots":null,"isRootLayout":false}},"isRootLayout":true},"staleTime":300}
